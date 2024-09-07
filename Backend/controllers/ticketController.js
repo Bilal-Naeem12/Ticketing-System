@@ -1,23 +1,28 @@
 const Ticket = require('../models/Ticket');
 const Event = require("../models/Event")
+const ticketPurchaseEmailTemplate = require('../services/emailTemplate/ticketPurchaseEmail');
+
 exports.createTicket = async (req, res) => {
   try {
     // Create the ticket but don't save yet
     const ticket = new Ticket(req.body);
-    const {event_id,user_id} = ticket 
+    const { event_id, user_id } = ticket;
+
+    // Check if the user has already purchased a ticket for this event
     const existingTicket = await Ticket.findOne({ event_id, user_id });
 
     if (existingTicket) {
       return res.status(400).json({ message: "You have already purchased a ticket for this event." });
     }
-    // Fetch the event using findById
-    const event = await Event.findById(ticket.event_id);
 
-    // Check if tickets are available
+    // Fetch the event using findById
+    const event = await Event.findById(event_id);
+
+    // Check if event exists and tickets are available
     if (!event) {
       return res.status(404).json({ error: 'Event not found' });
     }
-    
+
     if (event.ticket_quantity_left <= 0) {
       return res.status(400).json({ error: 'No tickets available for this event' });
     }
@@ -29,12 +34,27 @@ exports.createTicket = async (req, res) => {
     await ticket.save();
     await event.save();
 
+    // Fetch user details for email (assuming you have a User model and method to get user by ID)
+    const user = await User.findById(user_id);
+
+    // Create email content
+    const ticketDetails = {
+      eventName: event.name,
+      eventDate: event.date_from,
+      quantity: 1,
+      totalPrice: event.ticket_price
+    };
+    const htmlContent = ticketPurchaseEmailTemplate(user, ticketDetails);
+
+    // Send email confirmation
+    await sendMail(user.email, 'Your Ticket Purchase Confirmation', htmlContent);
+
     res.status(201).json(ticket);
   } catch (error) {
+    console.error('Error creating ticket:', error);
     res.status(400).json({ error: error.message });
   }
 };
-
 exports.getTicketsByUser = async (req, res) => {
   try {
     const userId = req.params.user_id;

@@ -8,7 +8,11 @@ const connectDB = require("./config/connection");
 const mainRouter = require('./routes/mainRouter');
 const authRouter = require("./routes/authRoutes/authRouter")
 const adminRouter = require("./routes/adminRoutes/adminRouter")
-const uploadRouter = require("./routes/uploadRoute/uploadRouter")
+const uploadRouter = require("./routes/servicesRoutes/uploadRouter")
+const otpVerificationRoutes = require("./routes/servicesRoutes/otpVerificationRoutes")
+const otpRoutes = require("./routes/servicesRoutes/otpRoutes")
+
+
 
 
 const app = express();
@@ -26,6 +30,8 @@ app.use('/api', mainRouter);
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
 app.use('/upload', uploadRouter);
+app.use('/otp', otpRoutes);
+app.use('/otp-verification', otpVerificationRoutes);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
