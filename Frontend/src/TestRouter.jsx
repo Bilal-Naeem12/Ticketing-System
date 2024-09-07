@@ -9,6 +9,7 @@ import TicketPreview from "./components/ui/TicketPreview";
 import AgentsEvent from "./components/ui/AgentsEvent";
 import CreateEvent from "./components/ui/CreateEvent";
 import SnackBar from "./components/ui/SnackBar";
+import Calendar from "./components/ui/Calendar";
 
 function TestRouter() {
   return (
@@ -23,6 +24,7 @@ function TestRouter() {
       <Route path="/Event" element={<AgentsEvent/>}></Route>
       <Route path="/CreateEvent" element={<CreateEvent/>}></Route>
       <Route path="/Snackbar" element={<SnackBar/>}></Route>
+      <Route path="/Calendar" element={<Calendar/>}></Route>
 
       
 
