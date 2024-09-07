@@ -47,31 +47,25 @@ const Sidebar = () => {
           <ListItemIcon>
             <HomeIcon />
           </ListItemIcon>
-          <ListItemText primary="Discover" />
+          <ListItemText primary="User" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <MessageIcon />
           </ListItemIcon>
-          <ListItemText primary="Messages" />
+          <ListItemText primary="Admin" />
+        </ListItem>
+        <ListItem button>
+          <ListItemIcon>
+            <CalendarTodayIcon />
+          </ListItemIcon>
+          <ListItemText primary="Organizer" />
         </ListItem>
         <ListItem button>
           <ListItemIcon>
             <CalendarTodayIcon />
           </ListItemIcon>
           <ListItemText primary="Calendar" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <EditIcon />
-          </ListItemIcon>
-          <ListItemText primary="Pages" />
-        </ListItem>
-        <ListItem button>
-          <ListItemIcon>
-            <SettingsIcon />
-          </ListItemIcon>
-          <ListItemText primary="Apps" />
         </ListItem>
       </List>
       <Divider sx={{ mt: "auto" }} />
@@ -93,49 +87,6 @@ const Sidebar = () => {
   );
 };
 
-// Calendar Component
-const Calendar = () => {
-  return (
-    <Box sx={{ p: 2 }}>
-      <Typography variant="h6">February 2018</Typography>
-      <Box
-        sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(7, 1fr)",
-          gap: 1,
-          mt: 2,
-        }}
-      >
-        {/* Mock data for calendar days */}
-        {Array.from({ length: 28 }).map((_, index) => (
-          <Paper
-            key={index}
-            sx={{
-              height: 100,
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              bgcolor: index % 2 === 0 ? "gray" : "white",
-            }}
-          >
-            <Typography>{index + 1}</Typography>
-          </Paper>
-        ))}
-      </Box>
-    </Box>
-  );
-};
-
 // Dashboard Page Component
-const DashboardPage = () => {
-  return (
-    <Box sx={{ display: "flex", height: "100vh" }}>
-      <Sidebar />
-      <Box sx={{ flex: 1, p: 2 }}>
-        <Calendar />
-      </Box>
-    </Box>
-  );
-};
 
-export default DashboardPage;
+export default Sidebar;
