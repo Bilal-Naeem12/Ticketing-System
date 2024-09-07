@@ -4,6 +4,12 @@ import HomeCarousel from "./components/ui/HomeCarousel";
 import EventCard from "./components/ui/EventCard";
 import Footer from "./components/ui/Footer";
 import CountdownTimer from "./components/ui/CountdownTimer";
+import FileUploader from "./components/ui/FileUploader";
+import TicketPreview from "./components/ui/TicketPreview";
+import AgentsEvent from "./components/ui/AgentsEvent";
+import CreateEvent from "./components/ui/CreateEvent";
+import SnackBar from "./components/ui/SnackBar";
+
 function TestRouter() {
   return (
     <Routes>
@@ -12,6 +18,13 @@ function TestRouter() {
       <Route path="/card" element={<EventCard/>}></Route>
       <Route path="/Footer" element={<Footer/>}></Route>
       <Route path="/Count" element={<CountdownTimer/>}></Route>
+      <Route path="/File" element={<FileUploader/>}></Route>
+      <Route path="/Ticket" element={<TicketPreview/>}></Route>
+      <Route path="/Event" element={<AgentsEvent/>}></Route>
+      <Route path="/CreateEvent" element={<CreateEvent/>}></Route>
+      <Route path="/Snackbar" element={<SnackBar/>}></Route>
+
+      
 
     </Routes>
   );
