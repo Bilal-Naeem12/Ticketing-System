@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Paper,
   Avatar,
@@ -20,15 +20,21 @@ import { useForm } from "react-hook-form";
 import TicketPreview from "../components/ui/TicketPreview";
 
 export default function ProfilePage() {
-  const { avatarColor } = useSelector((state) => state.userDetail);
-  const {
-    user: { _id, first_name, last_name, email, city = "", gender = "" },
-  } = useSelector((state) => state.auth);
+  // Dummy data to replace backend user details
+  const dummyUser = {
+    _id: "12345",
+    first_name: "John",
+    last_name: "Doe",
+    email: "johndoe@example.com",
+    city: "New York",
+    gender: "Male",
+    avatarColor: "#1976d2",
+  };
 
   const [isEditable, setIsEditable] = useState(false);
   const [tickets, setTickets] = useState([]); // Store user tickets
   const [loadingTickets, setLoadingTickets] = useState(true); // Loading state for tickets
-  const [error, setError] = useState(false); // Loading state for tickets
+  const [error, setError] = useState(false); // Error state for tickets
 
   const {
     register,
@@ -38,48 +44,42 @@ export default function ProfilePage() {
     setValue,
   } = useForm({
     defaultValues: {
-      first_name: first_name,
-      last_name: last_name,
-      email: email,
-      city: city,
-      gender: gender,
+      first_name: dummyUser.first_name,
+      last_name: dummyUser.last_name,
+      email: dummyUser.email,
+      city: dummyUser.city,
+      gender: dummyUser.gender,
     },
   });
 
   const firstname = watch("first_name");
   const lastname = watch("last_name");
 
-  const dispatch = useDispatch();
-
-  // Fetch user tickets
+  // Dummy ticket data
   useEffect(() => {
-    const fetchUserTickets = async () => {
-      try {
-        const response = await fetch(
-          `${
-            import.meta.env.VITE_API_BASE_URL
-          }/api/protected/tickets/user/${_id}`,
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        );
-        const data = await response.json();
-        setTickets(data); // Store the tickets in state
-        setLoadingTickets(false);
-      } catch (error) {
-        console.error("Error fetching tickets", error);
-        setLoadingTickets(false);
-        setError(true);
-      }
-    };
-
-    fetchUserTickets();
-  }, [_id]);
+    setLoadingTickets(true);
+    setTimeout(() => {
+      const dummyTickets = [
+        {
+          _id: "ticket1",
+          event: "Music Concert",
+          date: "2024-10-15",
+          price: "$50",
+        },
+        {
+          _id: "ticket2",
+          event: "Tech Conference",
+          date: "2024-11-05",
+          price: "$200",
+        },
+      ];
+      setTickets(dummyTickets); // Replace backend fetch with dummy data
+      setLoadingTickets(false);
+    }, 1000);
+  }, []);
 
   const onSubmit = (data) => {
-    dispatch(updateUser({ ...data, _id }));
+    console.log("Updated User Data: ", data); // Simulate updating user data
     setIsEditable(false);
   };
 
@@ -109,10 +109,10 @@ export default function ProfilePage() {
               mx: "auto",
               textTransform: "uppercase",
               border: "4px solid white",
-              bgcolor: avatarColor,
+              bgcolor: dummyUser.avatarColor,
             }}
           >
-            {first_name[0]}
+            {dummyUser.first_name[0]}
           </Avatar>
           <Typography variant="h5" sx={{ mt: 2 }} className="capitalize">
             {`${firstname} ${lastname}`}{" "}
@@ -145,7 +145,7 @@ export default function ProfilePage() {
                 />
               ) : (
                 <Typography variant="body1" className="normal-case">
-                  {watch("first_name")} {watch("last_name")}
+                  {watch("first_name")}
                 </Typography>
               )}
             </Grid>
@@ -155,7 +155,7 @@ export default function ProfilePage() {
                   <Typography variant="subtitle2">Last Name:</Typography>
                   <TextField
                     {...register("last_name", {
-                      required: "First name is required",
+                      required: "Last name is required",
                     })}
                     fullWidth
                     error={!!errors.last_name}
@@ -165,7 +165,7 @@ export default function ProfilePage() {
               ) : (
                 <>
                   <Typography variant="subtitle2">Email:</Typography>
-                  <Typography variant="body1">{email}</Typography>
+                  <Typography variant="body1">{dummyUser.email}</Typography>
                 </>
               )}
             </Grid>
