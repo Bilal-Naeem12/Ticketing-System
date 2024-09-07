@@ -1,7 +1,6 @@
-import HomePage from "./pages/HomePage";
-
+import EventPage from "./pages/EventDetailPages";
 function MainPage() {
-  return <HomePage />;
+  return <EventPage />;
 }
 
 export default MainPage;

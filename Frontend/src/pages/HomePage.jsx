@@ -3,14 +3,18 @@ import HomeCarousel from "../components/ui/HomeCarousel";
 import { Typography } from "@mui/material";
 import EventCard from "../components/ui/EventCard";
 import Skeleton from "@mui/material/Skeleton";
-
+import { useNavigate } from "react-router-dom";
 export default function HomePage() {
   const [events, setEvents] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [items, setitems] = useState([]);
+  const navigate = useNavigate();
 
+  const handleCardClick = (eventId) => {
+    navigate(`/event/${eventId}`); // Redirect to the detail page of the event
+  };
   // Hardcoded JSON data for events and upcoming events
   const eventsData = [
     {
@@ -112,6 +116,7 @@ export default function HomePage() {
                     key={item._id}
                     event={item}
                     isLoading={isLoading}
+                    onClick={() => handleCardClick(item._id)}
                   />
                 ) : null
               )}
@@ -140,6 +145,7 @@ export default function HomePage() {
                     key={item._id}
                     event={item}
                     isLoading={isLoading}
+                    onClick={() => handleCardClick(item._id)}
                   />
                 ) : null
               )}
