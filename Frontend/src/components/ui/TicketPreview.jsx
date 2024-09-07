@@ -1,21 +1,11 @@
 import React from 'react';
 import { Box, Card, CardContent, CardMedia, Typography, Divider } from '@mui/material';
+import { Link } from 'react-router-dom';
 
-export default function TicketPreview() {
-  // Placeholder data to replace backend dependencies
-  const ticket = {
-    event_id: {
-      _id: 1,
-      banner: 'https://via.placeholder.com/250x100', // Placeholder banner image
-      name: 'Sample Event Name',
-      location: 'Sample Location',
-      date_from: new Date(), // Static date for demonstration
-    },
-    price: 20, // Example price
-  };
-
+export default function TicketPreview({ ticket }) {
   return (
-    <Card className="items-center justify-center hover:scale-y-105 transition-all flex flex-wrap mb-6" sx={{ boxShadow: 3, borderRadius: '8px' }}>
+    <Link to={`/event/${ticket.event_id._id}`} className=''>
+    <Card className=' items-center justify-center hover:scale-y-105 transition-all flex flex-wrap mb-6' sx={{  boxShadow: 3, borderRadius: '8px' }}>
       <CardMedia
         component="img"
         sx={{ width: '250px', height: '100px', borderRadius: '0px' }}
@@ -38,5 +28,6 @@ export default function TicketPreview() {
         </Typography>
       </CardContent>
     </Card>
+    </Link>
   );
 }

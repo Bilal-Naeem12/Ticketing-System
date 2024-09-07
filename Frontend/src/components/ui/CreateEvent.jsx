@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import {
   TextField,
   Button,
@@ -21,15 +21,18 @@ import {
   CircularProgress,
 } from "@mui/material";
 import { useForm, Controller } from "react-hook-form";
-import FileUploader from "./FileUploader"; // FileUploader component used for file upload.
-
+import FileUploader from "./FileUploader";
+import { createEvent, resetEvent } from "../../service/features/eventSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { showSnackbar } from "../../service/features/snackbarSlice";
+import {fetchUser} from "../../service/features/userSlice"
 const defaultValues = {
   event_type: "Physical",
   entry_type: "Free",
   name: "Tech Innovation Expo 2024",
   date_from: "2024-09-15",
   date_to: "2024-09-17",
-  ticket_quantity: 100,
+  ticket_quantity:100,
   location: "San Francisco, CA",
   address: "1234 Innovation Way, San Francisco, CA 94107",
   contact_number: "123-456-7890",
@@ -47,13 +50,20 @@ const defaultValues = {
   },
   tags: ["Technology", "Innovation", "Expo"],
   highlights: [
-    "In-Depth Talks and Workshops",
-    "Networking Opportunities",
-    "Exhibitor Showcase",
+    'In-Depth Talks and Workshops',
+    'Networking Opportunities',
+    'Exhibitor Showcase'
   ],
 };
 
 export default function CreateEvent() {
+  const dispatch = useDispatch();
+  const {
+    user,
+  } = useSelector((state) => state.auth);
+  const { isLoading, error, event } = useSelector((state) => state.event);
+  const hasMounted = useRef(false);
+
   const {
     register,
     handleSubmit,
@@ -64,16 +74,32 @@ export default function CreateEvent() {
   const entry_type = watch("entry_type");
 
   const onSubmit = (data) => {
-    // You can handle form submission here.
-    console.log("Form Submitted: ", data);
+    dispatch(createEvent({ ...data, agent_id: user._id }));
   };
+
+  useEffect(() => {
+    if (hasMounted.current) {
+      if (error) {
+        dispatch(showSnackbar({ message: error, severity: "error" }));
+      } else if (event) {
+        dispatch(fetchUser(user))
+        dispatch(
+          showSnackbar({
+            message: "Event created successfully",
+          })
+        );
+        dispatch(resetEvent())
+       
+      }
+    } else {
+      hasMounted.current = true;
+    }
+  
+  }, [event, error, isLoading]);
 
   return (
     <>
-      <Paper
-        elevation={3}
-        sx={{ maxWidth: "1200px", mx: "auto", p: 4, mt: 4, mb: 5 }}
-      >
+      <Paper elevation={3} sx={{ maxWidth: "1200px", mx: "auto", p: 4, mt: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
           Create An Event
         </Typography>
@@ -174,11 +200,10 @@ export default function CreateEvent() {
                     }
                     label="Amount"
                     type="number"
+              
                   />
                   {errors.ticket_price && (
-                    <FormHelperText>
-                      {errors.ticket_price.message}
-                    </FormHelperText>
+                    <FormHelperText >{errors.ticket_price.message}</FormHelperText>
                   )}
                 </FormControl>
               )}
@@ -193,26 +218,25 @@ export default function CreateEvent() {
                 error={!!errors.name}
                 helperText={errors.name?.message}
               />
-
-              <TextField
-                fullWidth
-                label="Ticket Quantity"
-                required
-                margin="normal"
-                type="number"
-                {...register("ticket_quantity", {
-                  required: "Ticket quantity is required",
-                  min: {
-                    value: 1,
-                    message: "Ticket quantity must be at least 1",
-                  },
-                })}
-                InputLabelProps={{
-                  shrink: true,
-                }}
-                error={!!errors.ticket_quantity}
-                helperText={errors.ticket_quantity?.message}
-              />
+<TextField
+  fullWidth
+  label="Ticket Quantity"
+  required
+  margin="normal"
+  type="number"
+  {...register("ticket_quantity", {
+    required: "Ticket quantity is required",
+    min: {
+      value: 1,
+      message: "Ticket quantity must be at least 1",
+    },
+  })}
+  InputLabelProps={{
+    shrink: true,
+  }}
+  error={!!errors.ticket_quantity}
+  helperText={errors.ticket_quantity?.message}
+/>
 
               <TextField
                 fullWidth
@@ -408,7 +432,6 @@ export default function CreateEvent() {
                   },
                 })}
               />
-
               <TextField
                 fullWidth
                 label="Event Highlights"
@@ -417,12 +440,15 @@ export default function CreateEvent() {
                 rows={4}
                 placeholder="Enter Event Highlights (comma-separated)"
                 {...register("highlights", {
-                  required: "Event highlights are required",
+                  required:
+                   
+                   "e.g., In-Depth Talks, Networking Opportunities",
+             
                 })}
                 error={!!errors.highlights}
                 helperText={errors.highlights?.message}
+                
               />
-
               <FormLabel component="legend" sx={{ mt: 3 }}>
                 Tags
               </FormLabel>
@@ -471,7 +497,7 @@ export default function CreateEvent() {
           width: "100vw",
           height: "100vh",
         }}
-        open={false}
+        open={isLoading}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

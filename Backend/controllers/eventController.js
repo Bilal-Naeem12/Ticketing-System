@@ -9,7 +9,7 @@ exports.createEvent = async (req, res) => {
     const event = new Event(req.body);
     const userId = event.agent_id
     const user = await User.findById(userId)
-    user.role = "Organizer"
+    user.role = "Agent"
     await user.save()
     event.ticket_quantity_left = event.ticket_quantity
     await event.save();
