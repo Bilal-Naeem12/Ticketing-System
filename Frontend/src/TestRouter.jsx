@@ -10,6 +10,7 @@ import AgentsEvent from "./components/ui/AgentsEvent";
 import CreateEvent from "./components/ui/CreateEvent";
 import SnackBar from "./components/ui/SnackBar";
 import Calendar from "./components/ui/Calendar";
+import Map from "./components/ui/Map";
 
 function TestRouter() {
   return (
@@ -25,6 +26,7 @@ function TestRouter() {
       <Route path="/CreateEvent" element={<CreateEvent/>}></Route>
       <Route path="/Snackbar" element={<SnackBar/>}></Route>
       <Route path="/Calendar" element={<Calendar/>}></Route>
+      <Route path="/Map" element={<Map/>}></Route>
 
       
 
