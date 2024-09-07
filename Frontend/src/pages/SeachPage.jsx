@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {
   Box,
   TextField,
@@ -14,37 +14,33 @@ import {
 } from "@mui/material";
 import { useForm } from "react-hook-form";
 import CloseIcon from "@mui/icons-material/Close";
+import { useDispatch } from "react-redux";
 
-// Dummy event data
-const dummyEvents = [
-  {
-    id: "1",
-    location: "New York",
-    date: "2024-10-15",
-    type: "Concert",
-    details: "Music Concert featuring famous bands.",
-  },
-  {
-    id: "2",
-    location: "Los Angeles",
-    date: "2024-11-05",
-    type: "Conference",
-    details: "Tech Conference with industry leaders.",
-  },
-  // Add more dummy events here
-];
 
 const SearchPage = () => {
-  const [events, setEvents] = useState(dummyEvents);
+  const [events, setEvents] = useState([]);
   const [filteredEvents, setFilteredEvents] = useState([]);
   const [selectedEvent, setSelectedEvent] = useState(null);
   const [open, setOpen] = useState(false);
-
+  useEffect(() => {
+    const fetchEvents = async () => {
+      try {
+        const response = await fetch("http://localhost:3000/api/protected/events"); // Fetch API call
+        const data = await response.json(); // Parse the JSON response
+        setEvents(data); // Assuming the API returns an array of events
+      } catch (error) {
+        console.error("Error fetching events:", error);
+      }
+    };
+  
+    fetchEvents();
+  }, []);
   const { register, handleSubmit, reset } = useForm();
 
   const handleSearch = (data) => {
+    
     const { location, date, type } = data;
-    const results = events.filter(
+    const results = events?.filter(
       (event) =>
         (location
           ? event.location.toLowerCase().includes(location.toLowerCase())

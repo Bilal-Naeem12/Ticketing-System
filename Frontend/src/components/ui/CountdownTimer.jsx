@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, CircularProgress } from '@mui/material';
 
-const CountdownTimer = () => {
-  // Static target date for demonstration (e.g., New Year's Eve of this year)
-  const targetDate = new Date(new Date().getFullYear() + 1, 0, 1);
-
+const CountdownTimer = ({ targetDate }) => {
   const calculateTimeLeft = () => {
     const difference = +new Date(targetDate) - +new Date();
     let timeLeft = {};
@@ -33,7 +30,7 @@ const CountdownTimer = () => {
     }, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [targetDate]);
 
   return (
     <Box sx={{ display: 'flex', justifyContent: 'center', my: 2 }}>
@@ -63,7 +60,7 @@ const CountdownTimer = () => {
               }}
             >
               <Typography variant="h5" component="div">
-                {timeLeft[unit] < 10 ? `0${timeLeft[unit]}` : timeLeft[unit] || '00'}
+                {timeLeft[unit] <10 ?`0${timeLeft[unit]}`:timeLeft[unit]  || '00'}
               </Typography>
             </Box>
             <Typography variant="body2" sx={{ mt: 1 }}>
