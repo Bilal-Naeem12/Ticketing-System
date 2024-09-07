@@ -1,5 +1,7 @@
+import HomePage from "./pages/HomePage";
+
 function MainPage() {
-  return <div>I am Main</div>;
+  return <HomePage />;
 }
 
 export default MainPage;
