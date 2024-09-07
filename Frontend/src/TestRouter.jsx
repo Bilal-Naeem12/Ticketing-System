@@ -6,6 +6,7 @@ import Footer from "./components/ui/Footer";
 import CountdownTimer from "./components/ui/CountdownTimer";
 import FileUploader from "./components/ui/FileUploader";
 import TicketPreview from "./components/ui/TicketPreview";
+import AgentsEvent from "./components/ui/AgentsEvent";
 
 function TestRouter() {
   return (
@@ -17,7 +18,7 @@ function TestRouter() {
       <Route path="/Count" element={<CountdownTimer/>}></Route>
       <Route path="/File" element={<FileUploader/>}></Route>
       <Route path="/Ticket" element={<TicketPreview/>}></Route>
-      
+      <Route path="/Event" element={<AgentsEvent/>}></Route>
 
       
 
