@@ -87,63 +87,6 @@ export default function HomePage() {
     setitems(items);
   }, [upcomingEvents]);
 
-  //   useEffect(() => {
-  //     // Fetch all events
-  //     const fetchEvents = async () => {
-  //       try {
-  //         const response = await fetch(
-  //           `${import.meta.env.VITE_API_BASE_URL}/api/public/events`
-  //         );
-  //         if (!response.ok) {
-  //           throw new Error("Failed to fetch events");
-  //         }
-  //         const data = await response.json();
-  //         setEvents(data);
-  //       } catch (err) {
-  //         setError(err.message);
-  //       } finally {
-  //         setIsLoading(false);
-  //       }
-  //     };
-
-  //     // Fetch upcoming events
-  //     const fetchUpcomingEvents = async () => {
-  //       try {
-  //         const response = await fetch(
-  //           `${import.meta.env.VITE_API_BASE_URL}/api/public/events/upcoming`
-  //         );
-  //         if (!response.ok) {
-  //           throw new Error("Failed to fetch upcoming events");
-  //         }
-  //         const data = await response.json();
-  //         setUpcomingEvents(data);
-  //       } catch (err) {
-  //         setError(err.message);
-  //       }
-  //     };
-
-  //     fetchEvents();
-  //     fetchUpcomingEvents();
-  //   }, []);
-
-  //   useEffect(() => {
-  //     const items = upcomingEvents
-  //       .filter((item, i) => i < 3) // Filter only the first 3 items
-  //       .map((item) => (
-  //         <div
-  //           key={item.name}
-  //           className=" overflow-y-hidden max-h-[200px] sm:max-h-[300px] px-0 sm:px-10"
-  //         >
-  //           <img
-  //             src={item.banner}
-  //             alt={item.name}
-  //             className="w-[600px] mx-auto h-full object-contain"
-  //           />
-  //         </div>
-  //       ));
-  //     setitems(items);
-  //   }, [upcomingEvents]);
-
   return (
     <div className="space-y-14">
       <HomeCarousel items={items} />

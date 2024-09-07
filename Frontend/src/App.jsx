@@ -3,16 +3,20 @@ import "./App.css";
 import MainRouter from "./MainRouter";
 import TestRouter from "./TestRouter";
 import Navbar from "./components/ui/Navbar";
+import Footer from "./components/ui/Footer";
 
 function App() {
   return (
-    <>
+    <div className="flex flex-col min-h-screen">
       <Navbar />
-      <Routes>
-        <Route path="/*" element={<MainRouter />}></Route>
-        <Route path="/test/*" element={<TestRouter />}></Route>
-      </Routes>
-    </>
+      <main className="flex-grow">
+        <Routes>
+          <Route path="/*" element={<MainRouter />} />
+          <Route path="/test/*" element={<TestRouter />} />
+        </Routes>
+      </main>
+      <Footer />
+    </div>
   );
 }
 
