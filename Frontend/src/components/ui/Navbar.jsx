@@ -1,17 +1,34 @@
 import React, { useState } from "react";
-import { Button, TextField, Avatar, IconButton } from "@mui/material";
+import { Button, TextField, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 
 const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [search, setSearch] = useState("");
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const openMenu = Boolean(anchorEl);
 
   const navigation = [
     { name: "Home", to: "/" },
     { name: "Events", to: "/event" },
     { name: "Dashboard", to: "/dashboard" },
   ];
+
+  const handleAvatarClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleCloseMenu = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSignOut = () => {
+    // Logic for signing out (can be implemented as needed)
+    console.log("Sign Out");
+    handleCloseMenu();
+  };
 
   function classNames(...classes) {
     return classes.filter(Boolean).join(" ");
@@ -115,12 +132,41 @@ const Navbar = () => {
               </div>
             </div>
 
-            {/* Search & Profile */}
+            {/* Organize Button, Search & Profile */}
             <div className="absolute inset-y-0 right-0 flex gap-2 items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
+              <Button
+                variant="contained"
+                sx={{
+                  backgroundColor: '#1976d2', // Light blue color
+                  borderRadius: '20px',
+                  textTransform: 'none',
+                }}
+                href="/organize"
+              >
+                Organize
+              </Button>
               <IconButton onClick={toggleSearchBar}>
                 <SearchSharpIcon sx={{ fontSize: 32, color: "white" }} />
               </IconButton>
-              <Avatar alt="Profile Picture" src="https://randomuser.me/api/portraits/men/32.jpg" />
+              <IconButton onClick={handleAvatarClick}>
+                <Avatar alt="Profile Picture" src="https://randomuser.me/api/portraits/men/32.jpg" />
+              </IconButton>
+              <Menu
+                anchorEl={anchorEl}
+                open={openMenu}
+                onClose={handleCloseMenu}
+                anchorOrigin={{
+                  vertical: "bottom", // Position the menu below the avatar
+                  horizontal: "right",
+                }}
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "right",
+                }}
+              >
+                <MenuItem onClick={handleCloseMenu}>Your Profile</MenuItem>
+                <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+              </Menu>
             </div>
           </div>
         </div>
