@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
 import { useNavigate } from "react-router-dom";
+
 const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -42,8 +43,8 @@ const Navbar = () => {
     return classes.filter(Boolean).join(" ");
   }
 
-  const toggleSearchBar = () => {
-    setIsSearchVisible(!isSearchVisible);
+  const navigateToSearchPage = () => {
+    navigate("/search");
   };
 
   const toggleMobileMenu = () => {
@@ -153,7 +154,7 @@ const Navbar = () => {
               >
                 Organize
               </Button>
-              <IconButton onClick={toggleSearchBar}>
+              <IconButton onClick={navigateToSearchPage}>
                 <SearchSharpIcon sx={{ fontSize: 32, color: "white" }} />
               </IconButton>
               <IconButton onClick={handleAvatarClick}>

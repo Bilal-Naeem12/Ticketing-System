@@ -4,6 +4,7 @@ import EventPage from "./pages/EventDetailPages";
 import CreateEventpage from "./pages/CreateEventpage";
 import EventsPage from "./pages/EventsPage";
 import ProfilePage from "./pages/ProfilePage";
+import SearchPage from "./pages/SeachPage";
 function MainRouter() {
   return (
     <div>
@@ -13,6 +14,7 @@ function MainRouter() {
         <Route path="/event" element={<EventsPage />}></Route>
         <Route path="/create-event" element={<CreateEventpage />}></Route>
         <Route path="/profile" element={<ProfilePage />}></Route>
+        <Route path="/search" element={<SearchPage />}></Route>
       </Routes>
     </div>
   );
