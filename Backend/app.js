@@ -8,6 +8,9 @@ const connectDB = require("./config/connection");
 const mainRouter = require('./routes/mainRouter');
 const authRouter = require("./routes/authRoutes/authRouter")
 const adminRouter = require("./routes/adminRoutes/adminRouter")
+const uploadRouter = require("./routes/uploadRoute/uploadRouter")
+
+
 const app = express();
 
 // Connect to the database
@@ -22,6 +25,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/api', mainRouter);
 app.use('/auth', authRouter);
 app.use('/admin', adminRouter);
+app.use('/upload', uploadRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));
