@@ -47,9 +47,9 @@ const defaultValues = {
   },
   tags: ["Technology", "Innovation", "Expo"],
   highlights: [
-    'In-Depth Talks and Workshops',
-    'Networking Opportunities',
-    'Exhibitor Showcase'
+    "In-Depth Talks and Workshops",
+    "Networking Opportunities",
+    "Exhibitor Showcase",
   ],
 };
 
@@ -70,7 +70,10 @@ export default function CreateEvent() {
 
   return (
     <>
-      <Paper elevation={3} sx={{ maxWidth: "1200px", mx: "auto", p: 4, mt: 4 }}>
+      <Paper
+        elevation={3}
+        sx={{ maxWidth: "1200px", mx: "auto", p: 4, mt: 4, mb: 5 }}
+      >
         <Typography variant="h4" component="h1" gutterBottom>
           Create An Event
         </Typography>

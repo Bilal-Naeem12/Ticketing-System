@@ -1,7 +1,14 @@
 import React, { useState } from "react";
-import { Button, TextField, Avatar, IconButton, Menu, MenuItem } from "@mui/material";
+import {
+  Button,
+  TextField,
+  Avatar,
+  IconButton,
+  Menu,
+  MenuItem,
+} from "@mui/material";
 import SearchSharpIcon from "@mui/icons-material/SearchSharp";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const [isSearchVisible, setIsSearchVisible] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -9,7 +16,7 @@ const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
 
   const openMenu = Boolean(anchorEl);
-
+  const navigate = useNavigate();
   const navigation = [
     { name: "Home", to: "/" },
     { name: "Events", to: "/event" },
@@ -22,6 +29,7 @@ const Navbar = () => {
 
   const handleCloseMenu = () => {
     setAnchorEl(null);
+    navigate("/profile");
   };
 
   const handleSignOut = () => {
@@ -137,11 +145,11 @@ const Navbar = () => {
               <Button
                 variant="contained"
                 sx={{
-                  backgroundColor: '#1976d2', // Light blue color
-                  borderRadius: '20px',
-                  textTransform: 'none',
+                  backgroundColor: "#1976d2", // Light blue color
+                  borderRadius: "20px",
+                  textTransform: "none",
                 }}
-                href="/organize"
+                href="/create-event"
               >
                 Organize
               </Button>
@@ -149,7 +157,10 @@ const Navbar = () => {
                 <SearchSharpIcon sx={{ fontSize: 32, color: "white" }} />
               </IconButton>
               <IconButton onClick={handleAvatarClick}>
-                <Avatar alt="Profile Picture" src="https://randomuser.me/api/portraits/men/32.jpg" />
+                <Avatar
+                  alt="Profile Picture"
+                  src="https://randomuser.me/api/portraits/men/32.jpg"
+                />
               </IconButton>
               <Menu
                 anchorEl={anchorEl}

@@ -129,7 +129,7 @@ export default function HomePage() {
           <span className="text-orange-400 font-extrabold">2024</span>
         </Typography>
 
-        <div className="flex flex-col gap-5 flex-wrap w-full justify-start items-center sm:items-start sm:flex-row">
+        <div className="flex flex-col gap-5 flex-wrap py-7 w-full justify-start items-center sm:items-start sm:flex-row">
           {isLoading
             ? [...Array(4)].map((_, i) => (
                 <Skeleton
