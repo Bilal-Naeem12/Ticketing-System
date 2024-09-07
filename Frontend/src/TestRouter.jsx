@@ -8,6 +8,7 @@ import FileUploader from "./components/ui/FileUploader";
 import TicketPreview from "./components/ui/TicketPreview";
 import AgentsEvent from "./components/ui/AgentsEvent";
 import CreateEvent from "./components/ui/CreateEvent";
+import SnackBar from "./components/ui/SnackBar";
 
 function TestRouter() {
   return (
@@ -21,6 +22,7 @@ function TestRouter() {
       <Route path="/Ticket" element={<TicketPreview/>}></Route>
       <Route path="/Event" element={<AgentsEvent/>}></Route>
       <Route path="/CreateEvent" element={<CreateEvent/>}></Route>
+      <Route path="/Snackbar" element={<SnackBar/>}></Route>
 
       
 
